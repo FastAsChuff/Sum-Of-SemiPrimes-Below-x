@@ -597,8 +597,14 @@ int main(int argc, char* argv[]) {
     assert(x <= 10000000000000000000ULL);
     printf("Calculating sum of semiprimes less than or equal to %lu.\n", x);  
     uint64_t timestart = time(0);
-    U128 sumofsemiprimes;
-    U128 result = sumofprimes(numthreads, x, &primes, &primesums, &numprimes, xicachesmalls, &sumofsemiprimes);
+    U128 sumofsemiprimes = 0;
+    U128 result = 0;
+    if (x >= 4) {
+      result = sumofprimes(numthreads, x, &primes, &primesums, &numprimes, xicachesmalls, &sumofsemiprimes);
+    } else {
+      if (x == 2) result = 2;
+      if (x == 3) result = 5;
+    }
     uint64_t timeend = time(0);
     printf("The sum of primes less than or equal to %lu is ", x); 
     printU128(result);
